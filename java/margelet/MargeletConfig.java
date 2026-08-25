@@ -17,7 +17,10 @@ public class MargeletConfig {
     public static final int INPUT_LINES_DEFAULT = 6;
     public static final float INPUT_TEXT_SIZE_DEFAULT = 18f;
 
-    public static final String APP_NAME = "Margelet";
+    public static final String APP_NAME = "OakGram";
+
+    public static final int ACCENT_PINK = 0xFFFF4081;
+    public static final int ACCENT_PINK_DARK = 0xFFE91E63;
 
     /**
      * Номер этой сборки. По нему клиент понимает, что на гитхабе лежит версия
@@ -506,4 +509,147 @@ public class MargeletConfig {
     public static void setAntiDelete(boolean on) {
         prefs().edit().putBoolean("anti_delete", on).apply();
     }
+
+    public static boolean stripExif() { return prefs().getBoolean("oak_strip_exif", true); }
+    public static void setStripExif(boolean on) { prefs().edit().putBoolean("oak_strip_exif", on).apply(); }
+
+    public static boolean sanitizeLinks() { return prefs().getBoolean("oak_sanitize_links", true); }
+    public static void setSanitizeLinks(boolean on) { prefs().edit().putBoolean("oak_sanitize_links", on).apply(); }
+
+    public static boolean blockP2PCalls() { return prefs().getBoolean("oak_block_p2p", true); }
+    public static void setBlockP2PCalls(boolean on) { prefs().edit().putBoolean("oak_block_p2p", on).apply(); }
+
+    public static boolean disableLinkPreviews() { return prefs().getBoolean("oak_disable_link_previews", false); }
+    public static void setDisableLinkPreviews(boolean on) { prefs().edit().putBoolean("oak_disable_link_previews", on).apply(); }
+
+    public static boolean ghostNoTyping() { return prefs().getBoolean("oak_ghost_no_typing", false); }
+    public static void setGhostNoTyping(boolean on) { prefs().edit().putBoolean("oak_ghost_no_typing", on).apply(); }
+
+    public static boolean ghostStealthStories() { return prefs().getBoolean("oak_ghost_stealth_stories", false); }
+    public static void setGhostStealthStories(boolean on) { prefs().edit().putBoolean("oak_ghost_stealth_stories", on).apply(); }
+
+    public static boolean ghostStealthRead() { return prefs().getBoolean("oak_ghost_stealth_read", false); }
+    public static void setGhostStealthRead(boolean on) { prefs().edit().putBoolean("oak_ghost_stealth_read", on).apply(); }
+
+    public static boolean pluginFirewallEnabled() { return prefs().getBoolean("oak_plugin_firewall", true); }
+    public static void setPluginFirewallEnabled(boolean on) { prefs().edit().putBoolean("oak_plugin_firewall", on).apply(); }
+
+    public static boolean hideStories() { return prefs().getBoolean("oak_hide_stories", false); }
+    public static void setHideStories(boolean on) { prefs().edit().putBoolean("oak_hide_stories", on).apply(); }
+
+    public static boolean hideSendAs() { return prefs().getBoolean("oak_hide_send_as", false); }
+    public static void setHideSendAs(boolean on) { prefs().edit().putBoolean("oak_hide_send_as", on).apply(); }
+
+    public static boolean hideBotButtons() { return prefs().getBoolean("oak_hide_bot_buttons", false); }
+    public static void setHideBotButtons(boolean on) { prefs().edit().putBoolean("oak_hide_bot_buttons", on).apply(); }
+
+    public static boolean disableDoubleTapReaction() { return prefs().getBoolean("oak_no_double_tap", false); }
+    public static void setDisableDoubleTapReaction(boolean on) { prefs().edit().putBoolean("oak_no_double_tap", on).apply(); }
+
+    public static int bubbleCornersRadius() { return prefs().getInt("oak_bubble_radius", 16); }
+    public static void setBubbleCornersRadius(int r) { prefs().edit().putInt("oak_bubble_radius", r).apply(); }
+
+    public static boolean showUserIdDc() { return prefs().getBoolean("oak_show_id_dc", true); }
+    public static void setShowUserIdDc(boolean on) { prefs().edit().putBoolean("oak_show_id_dc", on).apply(); }
+
+    public static int avatarCorners() { return prefs().getInt("oak_avatar_shape", 0); }
+    public static void setAvatarCorners(int s) { prefs().edit().putInt("oak_avatar_shape", s).apply(); }
+
+    public static boolean disableHaptics() { return prefs().getBoolean("oak_no_haptics", false); }
+    public static void setDisableHaptics(boolean on) { prefs().edit().putBoolean("oak_no_haptics", on).apply(); }
+
+    public static boolean pauseMusicOnVoice() { return prefs().getBoolean("oak_pause_music", true); }
+    public static void setPauseMusicOnVoice(boolean on) { prefs().edit().putBoolean("oak_pause_music", on).apply(); }
+
+    public static boolean confirmVoiceSend() { return prefs().getBoolean("oak_confirm_voice", false); }
+    public static void setConfirmVoiceSend(boolean on) { prefs().edit().putBoolean("oak_confirm_voice", on).apply(); }
+
+    public static boolean rearCameraVideoNotes() { return prefs().getBoolean("oak_rear_video", false); }
+    public static void setRearCameraVideoNotes(boolean on) { prefs().edit().putBoolean("oak_rear_video", on).apply(); }
+
+    public static int voicePitch() { return prefs().getInt("oak_voice_pitch", 0); }
+    public static void setVoicePitch(int p) { prefs().edit().putInt("oak_voice_pitch", p).apply(); }
+
+    public static boolean unlimitedVoiceSpeed() { return prefs().getBoolean("oak_unlimited_speed", true); }
+    public static void setUnlimitedVoiceSpeed(boolean on) { prefs().edit().putBoolean("oak_unlimited_speed", on).apply(); }
+
+    public static boolean hideAllChatsTab() { return prefs().getBoolean("oak_hide_all_chats", false); }
+    public static void setHideAllChatsTab(boolean on) { prefs().edit().putBoolean("oak_hide_all_chats", on).apply(); }
+
+    public static boolean showTabCounters() { return prefs().getBoolean("oak_tab_counters", true); }
+    public static void setShowTabCounters(boolean on) { prefs().edit().putBoolean("oak_tab_counters", on).apply(); }
+
+    public static int blurIntensity() { return prefs().getInt("oak_blur_intensity", 50); }
+    public static void setBlurIntensity(int val) { prefs().edit().putInt("oak_blur_intensity", val).apply(); }
+
+    public static boolean sendByEnter() { return prefs().getBoolean("oak_send_by_enter", false); }
+    public static void setSendByEnter(boolean on) { prefs().edit().putBoolean("oak_send_by_enter", on).apply(); }
+
+    public static boolean useTor() { return prefs().getBoolean("oak_use_tor", false); }
+    public static void setUseTor(boolean on) { prefs().edit().putBoolean("oak_use_tor", on).apply(); }
+
+    public static String duressPin() { return prefs().getString("oak_duress_pin", ""); }
+    public static void setDuressPin(String pin) { prefs().edit().putString("oak_duress_pin", pin != null ? pin.trim() : "").apply(); }
+    public static boolean isDuressPin(String input) {
+        String dp = duressPin();
+        return !dp.isEmpty() && dp.equals(input != null ? input.trim() : "");
+    }
+
+    public static boolean blockScreenshots() { return prefs().getBoolean("oak_block_screenshots", true); }
+    public static void setBlockScreenshots(boolean on) { prefs().edit().putBoolean("oak_block_screenshots", on).apply(); }
+
+    public static boolean cleanForward() { return prefs().getBoolean("oak_clean_forward", true); }
+    public static void setCleanForward(boolean on) { prefs().edit().putBoolean("oak_clean_forward", on).apply(); }
+
+    public static boolean clearCacheOnExit() { return prefs().getBoolean("oak_clear_cache_exit", false); }
+    public static void setClearCacheOnExit(boolean on) { prefs().edit().putBoolean("oak_clear_cache_exit", on).apply(); }
+
+    public static boolean codeFormattingEnabled() { return prefs().getBoolean("oak_code_formatting", true); }
+    public static void setCodeFormattingEnabled(boolean on) { prefs().edit().putBoolean("oak_code_formatting", on).apply(); }
+
+    public static String stealthAccountPasscode() { return prefs().getString("oak_stealth_acc_pass", ""); }
+    public static void setStealthAccountPasscode(String p) { prefs().edit().putString("oak_stealth_acc_pass", p != null ? p.trim() : "").apply(); }
+    public static boolean isStealthUnlocked() { return prefs().getBoolean("oak_stealth_unlocked", false); }
+    public static void setStealthUnlocked(boolean u) { prefs().edit().putBoolean("oak_stealth_unlocked", u).apply(); }
+    public static boolean isAccountHidden(int id) { return prefs().getBoolean("oak_hidden_acc_" + id, false); }
+    public static void setAccountHidden(int id, boolean h) { prefs().edit().putBoolean("oak_hidden_acc_" + id, h).apply(); }
+
+    public static int dohProvider() { return prefs().getInt("oak_doh_provider", 1); }
+    public static void setDohProvider(int p) { prefs().edit().putInt("oak_doh_provider", p).apply(); }
+
+    public static boolean unlimitedPins() { return prefs().getBoolean("oak_unlimited_pins", true); }
+    public static void setUnlimitedPins(boolean on) { prefs().edit().putBoolean("oak_unlimited_pins", on).apply(); }
+
+    public static boolean maxQualityPhotos() { return prefs().getBoolean("oak_max_quality_photos", true); }
+    public static void setMaxQualityPhotos(boolean on) { prefs().edit().putBoolean("oak_max_quality_photos", on).apply(); }
+
+    public static boolean saveSelfDestructing() { return prefs().getBoolean("oak_save_self_destruct", true); }
+    public static void setSaveSelfDestructing(boolean on) { prefs().edit().putBoolean("oak_save_self_destruct", on).apply(); }
+
+    public static boolean boostDownloads() { return prefs().getBoolean("oak_boost_downloads", true); }
+    public static void setBoostDownloads(boolean on) { prefs().edit().putBoolean("oak_boost_downloads", on).apply(); }
+
+    public static boolean boostVoiceVolume() { return prefs().getBoolean("oak_boost_voice", false); }
+    public static void setBoostVoiceVolume(boolean on) { prefs().edit().putBoolean("oak_boost_voice", on).apply(); }
+
+    public static boolean disableProximitySensor() { return prefs().getBoolean("oak_no_proximity", false); }
+    public static void setDisableProximitySensor(boolean on) { prefs().edit().putBoolean("oak_no_proximity", on).apply(); }
+
+    public static boolean deleteForEveryoneDefault() { return prefs().getBoolean("oak_del_everyone", true); }
+    public static void setDeleteForEveryoneDefault(boolean on) { prefs().edit().putBoolean("oak_del_everyone", on).apply(); }
+
+    public static boolean showExactOnlineTime() { return prefs().getBoolean("oak_exact_online", true); }
+    public static void setShowExactOnlineTime(boolean on) { prefs().edit().putBoolean("oak_exact_online", on).apply(); }
+
+    public static boolean hidePhoneNumber() { return prefs().getBoolean("oak_hide_phone", true); }
+    public static void setHidePhoneNumber(boolean on) { prefs().edit().putBoolean("oak_hide_phone", on).apply(); }
+
+    public static boolean autoLoopVideos() { return prefs().getBoolean("oak_loop_videos", true); }
+    public static void setAutoLoopVideos(boolean on) { prefs().edit().putBoolean("oak_loop_videos", on).apply(); }
+
+    public static boolean inlineTranslation() { return prefs().getBoolean("oak_inline_translate", true); }
+    public static void setInlineTranslation(boolean on) { prefs().edit().putBoolean("oak_inline_translate", on).apply(); }
+
+    public static String targetTranslateLang() { return prefs().getString("oak_translate_lang", "ru"); }
+    public static void setTargetTranslateLang(String lang) { prefs().edit().putString("oak_translate_lang", lang).apply(); }
 }

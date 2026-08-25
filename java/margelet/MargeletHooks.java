@@ -132,9 +132,9 @@ public class MargeletHooks {
      * @return текст, который надо отправить, или null — не отправлять.
      */
     public static String sending(String text, long dialogId) {
-        if (!wantsSend || text == null) {
-            return text;
-        }
+        if (text == null) return null;
+        text = OakLinkSanitizer.sanitizeText(text);
+        if (!wantsSend) return text;
         final long started = System.currentTimeMillis();
         try {
             final Object answer = MargeletPluginHost.pythonValue("sending",
@@ -155,7 +155,7 @@ public class MargeletHooks {
             if (CANCEL.equals(result) || result.indexOf('\u0000') >= 0) {
                 return null;
             }
-            return result;
+            return OakLinkSanitizer.sanitizeText(result);
         } catch (Throwable t) {
             FileLog.e(t);
             MargeletPluginHost.log("margelet", String.valueOf(t), true);

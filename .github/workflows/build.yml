@@ -1,0 +1,52 @@
+name: Build OakGram APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout OakGram repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Android SDK & NDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install NDK and Build Tools
+        run: |
+          sdkmanager --install "ndk;25.2.9519653" "cmake;3.22.1" "platforms;android-34" "build-tools;34.0.0"
+
+      - name: Clone Telegram Upstream
+        run: |
+          git clone --depth=1 --recursive https://github.com/DrKLO/Telegram.git /tmp/Telegram
+
+      - name: Apply OakGram Patches & Sources
+        run: |
+          cd /tmp/Telegram
+          if [ -f "$GITHUB_WORKSPACE/patch/margelet.patch" ]; then
+            git apply --ignore-whitespace --whitespace=nowarn "$GITHUB_WORKSPACE/patch/margelet.patch" || true
+          fi
+          mkdir -p TMessagesProj/src/main/java/org/telegram/
+          cp -r "$GITHUB_WORKSPACE/java/"* TMessagesProj/src/main/java/org/telegram/ 2>/dev/null || cp -r "$GITHUB_WORKSPACE/java/"* TMessagesProj/src/main/java/
+
+      - name: Build Release APK
+        run: |
+          cd /tmp/Telegram
+          ./gradlew assembleAfatRelease --no-daemon --stacktrace
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OakGram-arm64-release
+          path: /tmp/Telegram/TMessagesProj/build/outputs/apk/afat/release/*.apk
+          retention-days: 14

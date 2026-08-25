@@ -104,16 +104,16 @@ public class MargeletBadge {
     private static final Badge[] BUILT_IN = {
             // Владелец форка.
             new Badge(7826361017L, R.string.MargeletBadgeTitle, R.string.MargeletBadgeAbout,
-                    0xFF8DD1B0, "https://t.me/narezanyinf"),
+                    0xFFFF4081, "https://t.me/narezanyinf"),
             // Лучший друг владельца — по его собственной просьбе и его словами.
             new Badge(8675724972L, R.string.MargeletBadgeFriendTitle, R.string.MargeletBadgeFriendAbout,
                     0xFFB7A8E0, "https://t.me/mizoginichka_y"),
             // Свои площадки форка. Значок тут не украшение, а ответ на вопрос
             // «а это точно тот самый канал».
             new Badge(-4426743212L, R.string.MargeletBadgeChannelTitle, R.string.MargeletBadgeChannelAbout,
-                    0xFF8DD1B0, MargeletConfig.CHANNEL_URL),
+                    0xFFFF4081, MargeletConfig.CHANNEL_URL),
             new Badge(-4436273526L, R.string.MargeletBadgeForumTitle, R.string.MargeletBadgeForumAbout,
-                    0xFF8DD1B0, MargeletConfig.FORUM_URL),
+                    0xFFFF4081, MargeletConfig.FORUM_URL),
             // Чьи коты живут в приложении. Кнопки у этого значка нет: вести
             // некуда, он не про площадку, а про кота.
             new Badge(7826361017L, R.string.MargeletBadgeCatTitle, R.string.MargeletBadgeCatAbout,
@@ -211,10 +211,10 @@ public class MargeletBadge {
         return out.toArray(new Badge[0]);
     }
 
-    /** Цвет поля значка. Не разобрали — зелёный, он же основной. */
+    /** Цвет поля значка. Не разобрали — розовый, он же основной акцент. */
     private static int color(String value) {
         if (value == null) {
-            return 0xFF8DD1B0;
+            return 0xFFFF4081;
         }
         String hex = value.trim();
         if (hex.startsWith("#")) {
@@ -226,7 +226,7 @@ public class MargeletBadge {
             // дорисовываем непрозрачность сами.
             return hex.length() <= 6 ? (int) (0xFF000000L | parsedColor) : (int) parsedColor;
         } catch (Exception ignored) {
-            return 0xFF8DD1B0;
+            return 0xFFFF4081;
         }
     }
 

@@ -28,7 +28,7 @@ BG = """<?xml version="1.0" encoding="utf-8"?>
     android:shape="rectangle">
     <solid android:color="#%02X%02X%02X" />
 </shape>
-""" % icon.GREEN
+""" % icon.PINK
 
 # Силуэт для тематической иконки. Координаты те же, что в icon.py, только
 # пересчитанные в поле 108 на 108: центр сдвинут вверх на те же три процента.

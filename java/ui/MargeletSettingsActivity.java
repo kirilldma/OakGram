@@ -30,6 +30,9 @@ import java.util.ArrayList;
  */
 public class MargeletSettingsActivity extends UniversalFragment {
 
+    private static final int ID_PRIVACY_HUB = 20;
+    private static final int ID_CUSTOMIZATION = 21;
+    private static final int ID_EVERYDAY = 22;
     private static final int ID_INPUT = 1;
     private static final int ID_SOUND = 2;
     private static final int ID_CHANNEL = 3;
@@ -47,12 +50,12 @@ public class MargeletSettingsActivity extends UniversalFragment {
     private static final int ID_PLUGINS = 15;
     private static final int ID_FEEDBACK = 18;
 
-    /** Объёмный значок в шапке. Пользы ноль, и в этом вся мысль. */
+    /** Объёмный значок в шапке. */
     private FrameLayout header;
 
     @Override
     protected CharSequence getTitle() {
-        return "Margelet";
+        return "OakGram";
     }
 
     @Override
@@ -68,6 +71,15 @@ public class MargeletSettingsActivity extends UniversalFragment {
         if (header != null) {
             items.add(UItem.asCustomShadow(header, 168));
         }
+        items.add(SettingsActivity.SettingCell.Factory.of(ID_PRIVACY_HUB,
+                IconBackgroundColors.RED.top, IconBackgroundColors.RED.bottom,
+                R.drawable.settings_privacy, "Приватность", "Метаданные, ссылки, сеть и скрытность"));
+        items.add(SettingsActivity.SettingCell.Factory.of(ID_CUSTOMIZATION,
+                IconBackgroundColors.PINK.top, IconBackgroundColors.PINK.bottom,
+                R.drawable.settings_appearance, "Кастомизация", "Пузыри, форма аватаров, чат и медиа"));
+        items.add(SettingsActivity.SettingCell.Factory.of(ID_EVERYDAY,
+                IconBackgroundColors.BLUE.top, IconBackgroundColors.BLUE.bottom,
+                R.drawable.settings_data, "Удобства и медиа", "Качество фото, быстрый перевод и загрузки"));
         items.add(SettingsActivity.SettingCell.Factory.of(ID_INPUT,
                 IconBackgroundColors.GREEN.top, IconBackgroundColors.GREEN.bottom,
                 R.drawable.settings_chat, LocaleController.getString(R.string.MargeletInput), LocaleController.getString(R.string.MargeletInputInfo)));
@@ -161,7 +173,13 @@ public class MargeletSettingsActivity extends UniversalFragment {
 
     @Override
     protected void onClick(UItem item, View view, int position, float x, float y) {
-        if (item.id == ID_STICKERS) {
+        if (item.id == ID_PRIVACY_HUB) {
+            presentFragment(new OakPrivacyActivity());
+        } else if (item.id == ID_CUSTOMIZATION) {
+            presentFragment(new OakCustomizationActivity());
+        } else if (item.id == ID_EVERYDAY) {
+            presentFragment(new OakEverydayActivity());
+        } else if (item.id == ID_STICKERS) {
             Browser.openUrl(getContext(), MargeletConfig.STICKERS_URL);
         } else if (item.id == ID_PLUGINS) {
             presentFragment(new MargeletPluginsActivity());
