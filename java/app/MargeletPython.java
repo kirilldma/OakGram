@@ -1,64 +1,70 @@
 package org.telegram.margelet;
 
 import android.content.Context;
+import org.telegram.messenger.FileLog;
+import java.lang.reflect.Method;
 
-import com.chaquo.python.PyObject;
-import com.chaquo.python.Python;
-import com.chaquo.python.android.AndroidPlatform;
-
-/**
- * Единственное место, где форк трогает питон напрямую.
- *
- * Лежит в модуле приложения, а не в общей библиотеке, потому что движок
- * питона подключается только к этой сборке: остальным вариантам приложения
- * он не нужен, и тащить одиннадцать мегабайт во все — глупость. Библиотека
- * зовёт этот класс по имени, через отражение: так она собирается и там, где
- * питона нет вовсе.
- */
 public class MargeletPython {
 
+    private static Object pythonInstance;
+    private static Method getModuleMethod;
+    private static Method callAttrMethod;
+
     public static void start(Context context) {
-        if (!Python.isStarted()) {
-            Python.start(new AndroidPlatform(context));
+        try {
+            Class<?> pyClass = Class.forName("com.chaquo.python.Python");
+            Method isStarted = pyClass.getMethod("isStarted");
+            if (!(Boolean) isStarted.invoke(null)) {
+                Class<?> platformClass = Class.forName("com.chaquo.python.android.AndroidPlatform");
+                Object platform = platformClass.getConstructor(Context.class).newInstance(context);
+                Method startMethod = pyClass.getMethod("start", Class.forName("com.chaquo.python.PythonPlatform"));
+                startMethod.invoke(null, platform);
+            }
+            Method getInstance = pyClass.getMethod("getInstance");
+            pythonInstance = getInstance.invoke(null);
+            getModuleMethod = pyClass.getMethod("getModule", String.class);
+            Class<?> pyObjClass = Class.forName("com.chaquo.python.PyObject");
+            callAttrMethod = pyObjClass.getMethod("callAttr", String.class, Object[].class);
+        } catch (Throwable t) {
+            FileLog.e(t);
         }
     }
 
-    /** Открылся чат. Плагины, которые на это подписаны, узнают об этом. */
+    private static Object call(String func, Object... args) {
+        try {
+            if (pythonInstance == null || getModuleMethod == null || callAttrMethod == null) return null;
+            Object host = getModuleMethod.invoke(pythonInstance, "margelet_host");
+            if (host != null) {
+                return callAttrMethod.invoke(host, func, args);
+            }
+        } catch (Throwable t) {
+            FileLog.e(t);
+        }
+        return null;
+    }
+
     public static void chatOpened(Object fragment) {
-        final PyObject host = Python.getInstance().getModule("margelet_host");
-        host.callAttr("chat_opened", fragment);
+        call("chat_opened", fragment);
     }
 
-    /**
-     * Человек отправляет текст. Ответ нужен сразу же, поэтому это
-     * единственный вызов питона, который не откладывается, а ждёт.
-     */
     public static String sending(String text, long dialogId) {
-        final PyObject host = Python.getInstance().getModule("margelet_host");
-        final PyObject answer = host.callAttr("sending", text, dialogId);
-        return answer == null ? text : answer.toString();
+        Object res = call("sending", text, dialogId);
+        return res == null ? text : res.toString();
     }
 
-    /** Пришло сообщение. */
     public static void received(String text, long dialogId, int messageId, boolean out) {
-        final PyObject host = Python.getInstance().getModule("margelet_host");
-        host.callAttr("received", text, dialogId, messageId, out);
+        call("received", text, dialogId, messageId, out);
     }
 
-    /** Нажали кнопку плагина в меню чата. */
     public static void buttonClicked(String pluginId, String key, Object fragment) {
-        final PyObject host = Python.getInstance().getModule("margelet_host");
-        host.callAttr("button_clicked", pluginId, key, fragment);
+        call("button_clicked", pluginId, key, fragment);
     }
 
-    /** Человек поменял настройку плагина на его экране настроек. */
     public static void settingsChanged(String pluginId, String key, String value) {
-        final PyObject host = Python.getInstance().getModule("margelet_host");
-        host.callAttr("settings_changed", pluginId, key, value);
+        call("settings_changed", pluginId, key, value);
     }
 
     public static void run(String id, String name, String folder) {
-        final PyObject host = Python.getInstance().getModule("margelet_host");
-        host.callAttr("run_plugin", id, name, folder);
+        call("run_plugin", id, name, folder);
     }
 }

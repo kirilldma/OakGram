@@ -36,8 +36,26 @@ jobs:
           if [ -f "$GITHUB_WORKSPACE/patch/margelet.patch" ]; then
             git apply --ignore-whitespace --whitespace=nowarn "$GITHUB_WORKSPACE/patch/margelet.patch" || true
           fi
-          mkdir -p TMessagesProj/src/main/java/org/telegram/
-          cp -r "$GITHUB_WORKSPACE/java/"* TMessagesProj/src/main/java/org/telegram/ 2>/dev/null || cp -r "$GITHUB_WORKSPACE/java/"* TMessagesProj/src/main/java/
+
+          mkdir -p TMessagesProj/src/main/java/org/telegram/margelet/
+          mkdir -p TMessagesProj/src/main/java/org/telegram/ui/
+          mkdir -p TMessagesProj/src/main/java/org/telegram/messenger/
+          mkdir -p TMessagesProj/src/main/java/de/robv/android/xposed/
+          mkdir -p TMessagesProj/src/main/res/values/
+          mkdir -p TMessagesProj/src/main/res/values-ru/
+          mkdir -p TMessagesProj/src/main/res/drawable/
+          mkdir -p TMessagesProj/src/main/res/raw/
+
+          cp -r "$GITHUB_WORKSPACE/java/margelet/"* TMessagesProj/src/main/java/org/telegram/margelet/ 2>/dev/null || true
+          cp -r "$GITHUB_WORKSPACE/java/ui/"* TMessagesProj/src/main/java/org/telegram/ui/ 2>/dev/null || true
+          cp -r "$GITHUB_WORKSPACE/java/de/"* TMessagesProj/src/main/java/de/ 2>/dev/null || true
+          cp "$GITHUB_WORKSPACE/java/app/ApplicationLoaderImpl.java" TMessagesProj/src/main/java/org/telegram/messenger/ 2>/dev/null || true
+          cp "$GITHUB_WORKSPACE/java/app/MargeletPython.java" TMessagesProj/src/main/java/org/telegram/margelet/ 2>/dev/null || true
+
+          cp -r "$GITHUB_WORKSPACE/res/drawable/"* TMessagesProj/src/main/res/drawable/ 2>/dev/null || true
+          cp -r "$GITHUB_WORKSPACE/res/raw/"* TMessagesProj/src/main/res/raw/ 2>/dev/null || true
+          cp -r "$GITHUB_WORKSPACE/res/values/"* TMessagesProj/src/main/res/values/ 2>/dev/null || true
+          cp -r "$GITHUB_WORKSPACE/res/values-ru/"* TMessagesProj/src/main/res/values-ru/ 2>/dev/null || true
 
       - name: Build Release APK
         run: |
