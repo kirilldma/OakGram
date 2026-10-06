@@ -28,9 +28,17 @@ for gradle_file in TMessagesProj/build.gradle TMessagesProj_AppStandalone/build.
             echo "[*] Enforcing arm64-v8a ABI filter in $gradle_file..."
             sed -i '/defaultConfig {/a \        ndk { abiFilters '\''arm64-v8a'\'' }' "$gradle_file" 2>/dev/null || true
         fi
+        sed -i 's/"armeabi-v7a", "arm64-v8a", "x86", "x86_64"/"arm64-v8a"/g' "$gradle_file" 2>/dev/null || true
         sed -i "s/ndk.debugSymbolLevel = 'FULL'/ndk.debugSymbolLevel = 'NONE'/g" "$gradle_file" 2>/dev/null || true
     fi
 done
+
+# Ensure Margelet font initializer in ApplicationLoader.java
+if [ -f TMessagesProj/src/main/java/org/telegram/messenger/ApplicationLoader.java ]; then
+    if ! grep -q "MargeletFonts.applyGlobally" TMessagesProj/src/main/java/org/telegram/messenger/ApplicationLoader.java 2>/dev/null; then
+        sed -i '/super.onCreate();/a \        try { org.telegram.margelet.MargeletFonts.applyGlobally(); } catch (Throwable ignored) {}' TMessagesProj/src/main/java/org/telegram/messenger/ApplicationLoader.java 2>/dev/null || true
+    fi
+fi
 
 echo "[*] Copying OakGram Java source files and resources..."
 mkdir -p TMessagesProj/src/main/java/org/telegram/margelet/

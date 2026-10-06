@@ -40,7 +40,7 @@ jobs:
           fi
           echo "[*] Using sdkmanager at: $SDK_MGR (SDK root: $SDK_PATH)"
           yes | "$SDK_MGR" --sdk_root="$SDK_PATH" --licenses || true
-          "$SDK_MGR" --sdk_root="$SDK_PATH" --install "ndk;25.2.9519653" "cmake;3.22.1"
+          "$SDK_MGR" --sdk_root="$SDK_PATH" --install "ndk;27.2.12479018" "cmake;3.22.1"
 
       - name: Clone Telegram Upstream
         run: |
@@ -53,7 +53,9 @@ jobs:
           # Configure local.properties
           SDK_DIR="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
           echo "sdk.dir=$SDK_DIR" > local.properties
-          echo "ndk.dir=$SDK_DIR/ndk/25.2.9519653" >> local.properties
+          if [ -d "$SDK_DIR/ndk/27.2.12479018" ]; then
+            echo "ndk.dir=$SDK_DIR/ndk/27.2.12479018" >> local.properties
+          fi
 
           # Increase gradle memory
           echo "org.gradle.jvmargs=-Xmx6144m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" >> gradle.properties
@@ -71,9 +73,17 @@ jobs:
                 echo "[*] Enforcing arm64-v8a ABI filter in $gradle_file..."
                 sed -i '/defaultConfig {/a \        ndk { abiFilters '\''arm64-v8a'\'' }' "$gradle_file" 2>/dev/null || true
               fi
+              sed -i 's/"armeabi-v7a", "arm64-v8a", "x86", "x86_64"/"arm64-v8a"/g' "$gradle_file" 2>/dev/null || true
               sed -i "s/ndk.debugSymbolLevel = 'FULL'/ndk.debugSymbolLevel = 'NONE'/g" "$gradle_file" 2>/dev/null || true
             fi
           done
+
+          # Ensure Margelet font initializer in ApplicationLoader.java
+          if [ -f TMessagesProj/src/main/java/org/telegram/messenger/ApplicationLoader.java ]; then
+            if ! grep -q "MargeletFonts.applyGlobally" TMessagesProj/src/main/java/org/telegram/messenger/ApplicationLoader.java 2>/dev/null; then
+              sed -i '/super.onCreate();/a \        try { org.telegram.margelet.MargeletFonts.applyGlobally(); } catch (Throwable ignored) {}' TMessagesProj/src/main/java/org/telegram/messenger/ApplicationLoader.java 2>/dev/null || true
+            fi
+          fi
 
           mkdir -p TMessagesProj/src/main/java/org/telegram/margelet/
           mkdir -p TMessagesProj/src/main/java/org/telegram/ui/
