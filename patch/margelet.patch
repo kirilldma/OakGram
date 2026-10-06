@@ -516,7 +516,7 @@ diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/Theme.java b/
 index c3616f58f..e1bbeefaf 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/Theme.java
 +++ b/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/Theme.java
-@@ -8161,17 +8161,37 @@ public class Theme {
+@@ -8161,17 +8161,38 @@ public class Theme {
                              break;
                          } else {
                              if ((idx = line.indexOf('=')) != -1) {
@@ -2343,36 +2343,6 @@ index 527bf8f90..1e4830c57 100644
 +    <foreground android:drawable="@mipmap/margelet_foreground" />
 +    <monochrome android:drawable="@drawable/margelet_plane" />
  </adaptive-icon>
-diff --git a/TMessagesProj/src/main/res/mipmap-hdpi/ic_launcher.png b/TMessagesProj/src/main/res/mipmap-hdpi/ic_launcher.png
-index 82f029a1a..060701f78 100644
-Binary files a/TMessagesProj/src/main/res/mipmap-hdpi/ic_launcher.png and b/TMessagesProj/src/main/res/mipmap-hdpi/ic_launcher.png differ
-diff --git a/TMessagesProj/src/main/res/mipmap-hdpi/ic_launcher_round.png b/TMessagesProj/src/main/res/mipmap-hdpi/ic_launcher_round.png
-index 82f029a1a..21f3f1a19 100644
-Binary files a/TMessagesProj/src/main/res/mipmap-hdpi/ic_launcher_round.png and b/TMessagesProj/src/main/res/mipmap-hdpi/ic_launcher_round.png differ
-diff --git a/TMessagesProj/src/main/res/mipmap-mdpi/ic_launcher.png b/TMessagesProj/src/main/res/mipmap-mdpi/ic_launcher.png
-index e102f5883..408839968 100644
-Binary files a/TMessagesProj/src/main/res/mipmap-mdpi/ic_launcher.png and b/TMessagesProj/src/main/res/mipmap-mdpi/ic_launcher.png differ
-diff --git a/TMessagesProj/src/main/res/mipmap-mdpi/ic_launcher_round.png b/TMessagesProj/src/main/res/mipmap-mdpi/ic_launcher_round.png
-index e102f5883..c6536bfa8 100644
-Binary files a/TMessagesProj/src/main/res/mipmap-mdpi/ic_launcher_round.png and b/TMessagesProj/src/main/res/mipmap-mdpi/ic_launcher_round.png differ
-diff --git a/TMessagesProj/src/main/res/mipmap-xhdpi/ic_launcher.png b/TMessagesProj/src/main/res/mipmap-xhdpi/ic_launcher.png
-index efc237c50..bc7f08466 100644
-Binary files a/TMessagesProj/src/main/res/mipmap-xhdpi/ic_launcher.png and b/TMessagesProj/src/main/res/mipmap-xhdpi/ic_launcher.png differ
-diff --git a/TMessagesProj/src/main/res/mipmap-xhdpi/ic_launcher_round.png b/TMessagesProj/src/main/res/mipmap-xhdpi/ic_launcher_round.png
-index efc237c50..069988b39 100644
-Binary files a/TMessagesProj/src/main/res/mipmap-xhdpi/ic_launcher_round.png and b/TMessagesProj/src/main/res/mipmap-xhdpi/ic_launcher_round.png differ
-diff --git a/TMessagesProj/src/main/res/mipmap-xxhdpi/ic_launcher.png b/TMessagesProj/src/main/res/mipmap-xxhdpi/ic_launcher.png
-index e59e4f0b4..74d168df6 100644
-Binary files a/TMessagesProj/src/main/res/mipmap-xxhdpi/ic_launcher.png and b/TMessagesProj/src/main/res/mipmap-xxhdpi/ic_launcher.png differ
-diff --git a/TMessagesProj/src/main/res/mipmap-xxhdpi/ic_launcher_round.png b/TMessagesProj/src/main/res/mipmap-xxhdpi/ic_launcher_round.png
-index e59e4f0b4..768eaaae4 100644
-Binary files a/TMessagesProj/src/main/res/mipmap-xxhdpi/ic_launcher_round.png and b/TMessagesProj/src/main/res/mipmap-xxhdpi/ic_launcher_round.png differ
-diff --git a/TMessagesProj/src/main/res/mipmap-xxxhdpi/ic_launcher.png b/TMessagesProj/src/main/res/mipmap-xxxhdpi/ic_launcher.png
-index df70e4512..0b3172dd2 100644
-Binary files a/TMessagesProj/src/main/res/mipmap-xxxhdpi/ic_launcher.png and b/TMessagesProj/src/main/res/mipmap-xxxhdpi/ic_launcher.png differ
-diff --git a/TMessagesProj/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png b/TMessagesProj/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
-index df70e4512..e41c06b7e 100644
-Binary files a/TMessagesProj/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png and b/TMessagesProj/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png differ
 diff --git a/TMessagesProj/src/main/res/values-ar/strings.xml b/TMessagesProj/src/main/res/values-ar/strings.xml
 index 8b8700432..1a7748953 100644
 --- a/TMessagesProj/src/main/res/values-ar/strings.xml
@@ -3244,96 +3214,6 @@ index 9ef459fa3..d838fab8b 100644
 +    <foreground android:drawable="@mipmap/margelet_foreground" />
 +    <monochrome android:drawable="@drawable/margelet_plane" />
 +</adaptive-icon>
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/ic_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/ic_launcher_sa.png
-index fede4550b..060701f78 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/ic_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/ic_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_2_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_2_launcher_sa.png
-index 0798d4900..d34d824bd 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_2_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_2_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_3_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_3_launcher_sa.png
-index 60f76574e..c9c844c04 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_3_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_3_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_4_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_4_launcher_sa.png
-index 06bc1e648..2e6d26eae 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_4_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_4_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_5_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_5_launcher_sa.png
-index a843de42a..18e554462 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_5_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_5_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_6_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_6_launcher_sa.png
-index 3167bbbcf..2d1e9c48e 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_6_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/icon_6_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/ic_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/ic_launcher_sa.png
-index 19df9e171..408839968 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/ic_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/ic_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_2_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_2_launcher_sa.png
-index 86aa47f14..a220aea36 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_2_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_2_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_3_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_3_launcher_sa.png
-index ea53f5819..4d847f6f2 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_3_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_3_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_4_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_4_launcher_sa.png
-index c8d66d3ca..e4628684a 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_4_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_4_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_5_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_5_launcher_sa.png
-index 8593c9ad1..eda1a7acd 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_5_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_5_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_6_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_6_launcher_sa.png
-index a801a206f..752b8bfb3 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_6_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/icon_6_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/ic_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/ic_launcher_sa.png
-index 88fad92c5..bc7f08466 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/ic_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/ic_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_2_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_2_launcher_sa.png
-index a63b7edab..46dc3da29 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_2_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_2_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_3_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_3_launcher_sa.png
-index 18fba2e99..ccf560768 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_3_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_3_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_4_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_4_launcher_sa.png
-index 89272479c..b7d5932d0 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_4_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_4_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_5_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_5_launcher_sa.png
-index 69a1f0c39..707e18588 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_5_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_5_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_6_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_6_launcher_sa.png
-index c227c29ae..395579014 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_6_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/icon_6_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/ic_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/ic_launcher_sa.png
-index f8aa06f8f..74d168df6 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/ic_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/ic_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_2_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_2_launcher_sa.png
-index 00ec4714c..6ac59fb2b 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_2_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_2_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_3_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_3_launcher_sa.png
-index 941db6791..05bd3f85e 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_3_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_3_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_4_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_4_launcher_sa.png
-index 724b1deb2..628bd0952 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_4_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_4_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_5_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_5_launcher_sa.png
-index 6d180ea1e..d364a6fa4 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_5_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_5_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_6_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_6_launcher_sa.png
-index fbd6b5fd2..b59975401 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_6_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/icon_6_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/ic_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/ic_launcher_sa.png
-index 66433b366..0b3172dd2 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/ic_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/ic_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_2_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_2_launcher_sa.png
-index 40af15585..d7c89dac3 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_2_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_2_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_3_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_3_launcher_sa.png
-index 470554ba0..e37965da2 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_3_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_3_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_4_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_4_launcher_sa.png
-index 6fe44e352..3c5543e7b 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_4_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_4_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_5_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_5_launcher_sa.png
-index 547df65e7..c66248577 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_5_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_5_launcher_sa.png differ
-diff --git a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_6_launcher_sa.png b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_6_launcher_sa.png
-index b1e36f349..a42198063 100644
-Binary files a/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_6_launcher_sa.png and b/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/icon_6_launcher_sa.png differ
 diff --git a/build.gradle b/build.gradle
 index 528fd746d..8b64b0f82 100644
 --- a/build.gradle

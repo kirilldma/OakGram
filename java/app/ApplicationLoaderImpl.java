@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import androidx.core.content.FileProvider;
 
 import org.json.JSONObject;
-import org.telegram.messenger.web.BuildConfig;
-import org.telegram.messenger.web.R;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.AlertDialog;
@@ -30,7 +28,7 @@ import java.io.File;
 public class ApplicationLoaderImpl extends ApplicationLoader {
     @Override
     protected String onGetApplicationId() {
-        return BuildConfig.APPLICATION_ID;
+        return ApplicationLoader.applicationContext != null ? ApplicationLoader.applicationContext.getPackageName() : "org.telegram.messenger.web";
     }
 
     @Override

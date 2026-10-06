@@ -10,6 +10,14 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - name: Free Disk Space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf "/usr/local/share/boost"
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          df -h
+
       - name: Checkout OakGram repository
         uses: actions/checkout@v4
 
@@ -33,38 +41,64 @@ jobs:
       - name: Apply OakGram Patches & Sources
         run: |
           cd /tmp/Telegram
+
+          # Configure local.properties
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+          echo "ndk.dir=$ANDROID_SDK_ROOT/ndk/25.2.9519653" >> local.properties
+
+          # Increase gradle memory
+          echo "org.gradle.jvmargs=-Xmx6144m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" >> gradle.properties
+
           if [ -f "$GITHUB_WORKSPACE/patch/margelet.patch" ]; then
-            git apply --ignore-whitespace --whitespace=nowarn "$GITHUB_WORKSPACE/patch/margelet.patch" || true
+            git apply --ignore-whitespace --whitespace=nowarn "$GITHUB_WORKSPACE/patch/margelet.patch" || \
+            git apply --ignore-whitespace --whitespace=nowarn -3 "$GITHUB_WORKSPACE/patch/margelet.patch" || \
+            git apply --ignore-whitespace --whitespace=nowarn --reject "$GITHUB_WORKSPACE/patch/margelet.patch" || true
           fi
+
+          # Enforce arm64-v8a ABI filter and disable huge native debug symbols
+          if ! grep -q "abiFilters 'arm64-v8a'" TMessagesProj/build.gradle 2>/dev/null; then
+            echo "[*] Enforcing arm64-v8a ABI filter in TMessagesProj/build.gradle..."
+            sed -i '/defaultConfig {/a \        ndk { abiFilters '\''arm64-v8a'\'' }' TMessagesProj/build.gradle 2>/dev/null || true
+          fi
+          sed -i "s/ndk.debugSymbolLevel = 'FULL'/ndk.debugSymbolLevel = 'NONE'/g" TMessagesProj/build.gradle 2>/dev/null || true
 
           mkdir -p TMessagesProj/src/main/java/org/telegram/margelet/
           mkdir -p TMessagesProj/src/main/java/org/telegram/ui/
-          mkdir -p TMessagesProj/src/main/java/org/telegram/messenger/
           mkdir -p TMessagesProj/src/main/java/de/robv/android/xposed/
+          mkdir -p TMessagesProj_AppStandalone/src/main/java/org/telegram/messenger/
+          mkdir -p TMessagesProj_App/src/main/java/org/telegram/messenger/
           mkdir -p TMessagesProj/src/main/res/values/
           mkdir -p TMessagesProj/src/main/res/values-ru/
+          mkdir -p TMessagesProj/src/main/res/values-zh/
           mkdir -p TMessagesProj/src/main/res/drawable/
           mkdir -p TMessagesProj/src/main/res/raw/
 
           cp -r "$GITHUB_WORKSPACE/java/margelet/"* TMessagesProj/src/main/java/org/telegram/margelet/ 2>/dev/null || true
           cp -r "$GITHUB_WORKSPACE/java/ui/"* TMessagesProj/src/main/java/org/telegram/ui/ 2>/dev/null || true
           cp -r "$GITHUB_WORKSPACE/java/de/"* TMessagesProj/src/main/java/de/ 2>/dev/null || true
-          cp "$GITHUB_WORKSPACE/java/app/ApplicationLoaderImpl.java" TMessagesProj/src/main/java/org/telegram/messenger/ 2>/dev/null || true
+          cp "$GITHUB_WORKSPACE/java/app/ApplicationLoaderImpl.java" TMessagesProj_AppStandalone/src/main/java/org/telegram/messenger/ 2>/dev/null || true
+          cp "$GITHUB_WORKSPACE/java/app/ApplicationLoaderImpl.java" TMessagesProj_App/src/main/java/org/telegram/messenger/ 2>/dev/null || true
           cp "$GITHUB_WORKSPACE/java/app/MargeletPython.java" TMessagesProj/src/main/java/org/telegram/margelet/ 2>/dev/null || true
 
           cp -r "$GITHUB_WORKSPACE/res/drawable/"* TMessagesProj/src/main/res/drawable/ 2>/dev/null || true
           cp -r "$GITHUB_WORKSPACE/res/raw/"* TMessagesProj/src/main/res/raw/ 2>/dev/null || true
           cp -r "$GITHUB_WORKSPACE/res/values/"* TMessagesProj/src/main/res/values/ 2>/dev/null || true
           cp -r "$GITHUB_WORKSPACE/res/values-ru/"* TMessagesProj/src/main/res/values-ru/ 2>/dev/null || true
+          cp -r "$GITHUB_WORKSPACE/res/values-zh/"* TMessagesProj/src/main/res/values-zh/ 2>/dev/null || true
 
       - name: Build Release APK
         run: |
           cd /tmp/Telegram
-          ./gradlew assembleAfatRelease --no-daemon --stacktrace
+          if ./gradlew :TMessagesProj_AppStandalone:assembleAfatRelease --no-daemon --stacktrace; then
+            echo "Standalone APK build succeeded"
+          else
+            echo "Falling back to assembleAfatRelease"
+            ./gradlew assembleAfatRelease --no-daemon --stacktrace
+          fi
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: OakGram-arm64-release
-          path: /tmp/Telegram/TMessagesProj/build/outputs/apk/afat/release/*.apk
+          path: /tmp/Telegram/**/build/outputs/apk/**/*.apk
           retention-days: 14
