@@ -27,12 +27,20 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Android SDK & NDK
-        uses: android-actions/setup-android@v3
-
       - name: Install NDK and Build Tools
         run: |
-          sdkmanager --install "ndk;25.2.9519653" "cmake;3.22.1" "platforms;android-34" "build-tools;34.0.0"
+          SDK_PATH="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          if [ -x "$SDK_PATH/cmdline-tools/latest/bin/sdkmanager" ]; then
+            SDK_MGR="$SDK_PATH/cmdline-tools/latest/bin/sdkmanager"
+          elif command -v sdkmanager >/dev/null 2>&1; then
+            SDK_MGR="$(command -v sdkmanager)"
+          else
+            echo "[-] Error: sdkmanager not found"
+            exit 1
+          fi
+          echo "[*] Using sdkmanager at: $SDK_MGR (SDK root: $SDK_PATH)"
+          yes | "$SDK_MGR" --sdk_root="$SDK_PATH" --licenses || true
+          "$SDK_MGR" --sdk_root="$SDK_PATH" --install "ndk;25.2.9519653" "cmake;3.22.1"
 
       - name: Clone Telegram Upstream
         run: |
@@ -43,8 +51,9 @@ jobs:
           cd /tmp/Telegram
 
           # Configure local.properties
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-          echo "ndk.dir=$ANDROID_SDK_ROOT/ndk/25.2.9519653" >> local.properties
+          SDK_DIR="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          echo "sdk.dir=$SDK_DIR" > local.properties
+          echo "ndk.dir=$SDK_DIR/ndk/25.2.9519653" >> local.properties
 
           # Increase gradle memory
           echo "org.gradle.jvmargs=-Xmx6144m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" >> gradle.properties
@@ -56,11 +65,15 @@ jobs:
           fi
 
           # Enforce arm64-v8a ABI filter and disable huge native debug symbols
-          if ! grep -q "abiFilters 'arm64-v8a'" TMessagesProj/build.gradle 2>/dev/null; then
-            echo "[*] Enforcing arm64-v8a ABI filter in TMessagesProj/build.gradle..."
-            sed -i '/defaultConfig {/a \        ndk { abiFilters '\''arm64-v8a'\'' }' TMessagesProj/build.gradle 2>/dev/null || true
-          fi
-          sed -i "s/ndk.debugSymbolLevel = 'FULL'/ndk.debugSymbolLevel = 'NONE'/g" TMessagesProj/build.gradle 2>/dev/null || true
+          for gradle_file in TMessagesProj/build.gradle TMessagesProj_AppStandalone/build.gradle TMessagesProj_App/build.gradle; do
+            if [ -f "$gradle_file" ]; then
+              if ! grep -q "abiFilters 'arm64-v8a'" "$gradle_file" 2>/dev/null; then
+                echo "[*] Enforcing arm64-v8a ABI filter in $gradle_file..."
+                sed -i '/defaultConfig {/a \        ndk { abiFilters '\''arm64-v8a'\'' }' "$gradle_file" 2>/dev/null || true
+              fi
+              sed -i "s/ndk.debugSymbolLevel = 'FULL'/ndk.debugSymbolLevel = 'NONE'/g" "$gradle_file" 2>/dev/null || true
+            fi
+          done
 
           mkdir -p TMessagesProj/src/main/java/org/telegram/margelet/
           mkdir -p TMessagesProj/src/main/java/org/telegram/ui/

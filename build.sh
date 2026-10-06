@@ -22,11 +22,15 @@ if [ -f "$DIR/patch/margelet.patch" ]; then
 fi
 
 # Ensure arm64-v8a ABI filter and disable huge native debug symbols
-if ! grep -q "abiFilters 'arm64-v8a'" TMessagesProj/build.gradle 2>/dev/null; then
-    echo "[*] Enforcing arm64-v8a ABI filter in TMessagesProj/build.gradle..."
-    sed -i '/defaultConfig {/a \        ndk { abiFilters '\''arm64-v8a'\'' }' TMessagesProj/build.gradle 2>/dev/null || true
-fi
-sed -i "s/ndk.debugSymbolLevel = 'FULL'/ndk.debugSymbolLevel = 'NONE'/g" TMessagesProj/build.gradle 2>/dev/null || true
+for gradle_file in TMessagesProj/build.gradle TMessagesProj_AppStandalone/build.gradle TMessagesProj_App/build.gradle; do
+    if [ -f "$gradle_file" ]; then
+        if ! grep -q "abiFilters 'arm64-v8a'" "$gradle_file" 2>/dev/null; then
+            echo "[*] Enforcing arm64-v8a ABI filter in $gradle_file..."
+            sed -i '/defaultConfig {/a \        ndk { abiFilters '\''arm64-v8a'\'' }' "$gradle_file" 2>/dev/null || true
+        fi
+        sed -i "s/ndk.debugSymbolLevel = 'FULL'/ndk.debugSymbolLevel = 'NONE'/g" "$gradle_file" 2>/dev/null || true
+    fi
+done
 
 echo "[*] Copying OakGram Java source files and resources..."
 mkdir -p TMessagesProj/src/main/java/org/telegram/margelet/
