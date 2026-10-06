@@ -64,6 +64,8 @@ jobs:
             git apply --ignore-whitespace --whitespace=nowarn "$GITHUB_WORKSPACE/patch/margelet.patch" || \
             git apply --ignore-whitespace --whitespace=nowarn -3 "$GITHUB_WORKSPACE/patch/margelet.patch" || \
             git apply --ignore-whitespace --whitespace=nowarn --reject "$GITHUB_WORKSPACE/patch/margelet.patch" || true
+            find . -name "*.rej" -delete 2>/dev/null || true
+            find . -name "*.orig" -delete 2>/dev/null || true
           fi
 
           # Enforce arm64-v8a ABI filter and disable huge native debug symbols

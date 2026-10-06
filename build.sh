@@ -19,6 +19,8 @@ if [ -f "$DIR/patch/margelet.patch" ]; then
     git apply --ignore-whitespace --whitespace=nowarn "$DIR/patch/margelet.patch" || \
     git apply --ignore-whitespace --whitespace=nowarn -3 "$DIR/patch/margelet.patch" || \
     git apply --ignore-whitespace --whitespace=nowarn --reject "$DIR/patch/margelet.patch" || true
+    find . -name "*.rej" -delete 2>/dev/null || true
+    find . -name "*.orig" -delete 2>/dev/null || true
 fi
 
 # Ensure arm64-v8a ABI filter and disable huge native debug symbols
